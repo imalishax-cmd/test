@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Утка в пальто</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #f5f0eb;
+      --surface: #ffffff;
+      --accent: #3b4a3f;
+      --accent-hover: #2a362e;
+      --text: #1a1a1a;
+      --muted: #6b6b6b;
+      --radius: 12px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 48px 16px 64px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .brand {
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: normal;
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+    }
+
+    .tagline {
+      margin-top: 12px;
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: clamp(24px, 5vw, 48px);
+      max-width: 560px;
+      width: 100%;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+    }
+
+    .about {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text);
+      margin-bottom: 32px;
+    }
+
+    .about strong {
+      font-weight: bold;
+    }
+
+    /* Duck illustration */
+    .duck {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .duck-figure {
+      position: relative;
+      width: 90px;
+      height: 90px;
+    }
+
+    /* body */
+    .duck-figure::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 10px;
+      width: 70px; height: 54px;
+      background: #3b4a3f;
+      border-radius: 50% 50% 46% 46% / 60% 60% 40% 40%;
+    }
+
+    /* head */
+    .duck-figure::after {
+      content: '';
+      position: absolute;
+      top: 4px; left: 30px;
+      width: 32px; height: 30px;
+      background: #3b4a3f;
+      border-radius: 50%;
+    }
+
+    .duck-eye {
+      position: absolute;
+      top: 11px; left: 51px;
+      width: 6px; height: 6px;
+      background: #f5f0eb;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .duck-beak {
+      position: absolute;
+      top: 20px; left: 61px;
+      width: 14px; height: 7px;
+      background: #c9893a;
+      border-radius: 0 4px 4px 0;
+      z-index: 1;
+    }
+
+    .duck-collar {
+      position: absolute;
+      bottom: 32px; left: 16px;
+      width: 58px; height: 10px;
+      background: #c9893a;
+      border-radius: 4px;
+      z-index: 1;
+    }
+
+    /* Button — larger, with arrow */
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 18px 24px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      letter-spacing: 0.02em;
+      box-shadow: 0 4px 14px rgba(59,74,63,0.35);
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      background: var(--accent-hover);
+      outline: none;
+      transform: translateY(-1px);
+    }
+
+    .btn:active { transform: translateY(0); }
+
+    .btn-arrow {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    /* Recommendation as a standalone card */
+    .recommendation {
+      margin-top: 28px;
+      padding: 24px;
+      background: #fff;
+      border: 2px solid var(--accent);
+      border-radius: var(--radius);
+      display: none;
+      box-shadow: 0 4px 16px rgba(59,74,63,0.12);
+    }
+
+    .recommendation.visible {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .recommendation-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .recommendation-text {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    footer {
+      margin-top: 48px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="duck" aria-hidden="true">
+      <div class="duck-figure">
+        <span class="duck-eye"></span>
+        <span class="duck-beak"></span>
+        <span class="duck-collar"></span>
+      </div>
+    </div>
+    <h1 class="brand">Утка в пальто</h1>
+    <p class="tagline">Стиль, который согревает</p>
+  </header>
+
+  <main>
+    <div class="card">
+      <p class="about">
+        Мы шьём <strong>пальто для настоящих уток</strong> — и для людей, которые знают,
+        что хороший образ начинается с правильного верхнего слоя.
+        Каждая модель создана вручную: тёплая подкладка, глубокие карманы,
+        силуэт на все случаи жизни.
+      </p>
+
+      <button class="btn" id="pickBtn" type="button">
+        Подобрать образ
+        <span class="btn-arrow" aria-hidden="true">→</span>
+      </button>
+
+      <div class="recommendation" id="result" aria-live="polite">
+        <div class="recommendation-label">Ваш образ</div>
+        <div class="recommendation-text" id="resultText"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer>© 2026 Утка в пальто</footer>
+
+  <script>
+    var recommendations = [
+      "Классическое двубортное пальто цвета морской волны + широкие брюки цвета экрю + белая рубашка. " +
+      "Акцент — шёлковый платок в нагрудном кармане. Обувь: оксфорды карамельного оттенка.",
+
+      "Оверсайз-пальто в клетку (оливковый/горчичный) + водолазка с высоким горлом тёмно-зелёного цвета + " +
+      "прямые джинсы. Завершите образ объёмным шарфом и ботинками на рифлёной подошве."
+    ];
+
+    var lastIndex = -1;
+
+    document.getElementById("pickBtn").addEventListener("click", function () {
+      var index;
+      do {
+        index = Math.floor(Math.random() * recommendations.length);
+      } while (recommendations.length > 1 && index === lastIndex);
+      lastIndex = index;
+
+      document.getElementById("resultText").textContent = recommendations[index];
+      document.getElementById("result").classList.add("visible");
+    });
+  </script>
+
+</body>
+</html>
